@@ -90,7 +90,6 @@ public class MoneyTransferServiceBean implements MoneyTransferService {
 				e.printStackTrace();
 				System.out.println("Ошибка при сохранении операции.");
 			}
-			//насчет теста operationDao.saveOperation - не понял, что имеется ввиду. 
 		}
 
 		private void transferDo() throws TransferException {
