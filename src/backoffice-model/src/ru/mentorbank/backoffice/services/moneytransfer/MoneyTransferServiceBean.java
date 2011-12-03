@@ -1,9 +1,8 @@
 package ru.mentorbank.backoffice.services.moneytransfer;
 
-import java.util.Set;
-
 import ru.mentorbank.backoffice.dao.OperationDao;
 import ru.mentorbank.backoffice.dao.exception.OperationDaoException;
+import ru.mentorbank.backoffice.model.Account;
 import ru.mentorbank.backoffice.model.Operation;
 import ru.mentorbank.backoffice.model.stoplist.JuridicalStopListRequest;
 import ru.mentorbank.backoffice.model.stoplist.PhysicalStopListRequest;
@@ -69,15 +68,29 @@ public class MoneyTransferServiceBean implements MoneyTransferService {
 		}
 
 		private void saveOperation() {
-			// TODO: Необходимо сделать вызов операции saveOperation и сделать
+			// TODO(complete): Необходимо сделать вызов операции saveOperation и сделать
 			// соответствующий тест вызова операции operationDao.saveOperation()
+			Operation operation = new Operation();
+			Account srcAccount = new Account();
+			Account dstAccount = new Account();
+			
+			srcAccount.setAccountNumber(request.getSrcAccount().getAccountNumber());
+			operation.setSrcAccount(srcAccount);
+			
+			dstAccount.setAccountNumber(request.getDstAccount().getAccountNumber());
+			operation.setDstAccount(dstAccount);
+			
+			operation.setSrcStoplistInfo(srcStopListInfo);
+			operation.setDstStoplistInfo(dstStopListInfo);
+			//где взять дату непонятно
+			
 			try {
-				Set<Operation> setOperation = operationDao.getOperations();
-				for (Operation operation : setOperation)
-					operationDao.saveOperation(operation);
-			} catch(OperationDaoException e) {
-				System.out.println("Ошибка сохранения операции.");
+				operationDao.saveOperation(operation);
+			} catch (OperationDaoException e) {
+				e.printStackTrace();
+				System.out.println("Ошибка при сохранении операции.");
 			}
+			//насчет теста operationDao.saveOperation - не понял, что имеется ввиду. 
 		}
 
 		private void transferDo() throws TransferException {
@@ -102,7 +115,7 @@ public class MoneyTransferServiceBean implements MoneyTransferService {
 						.getJuridicalStopListInfo(request);
 				return stopListInfo;
 			} else if (accountInfo instanceof PhysicalAccountInfo) {
-				// TODO: Сделать вызов stopListService для физических лиц
+				// TODO(complete): Сделать вызов stopListService для физических лиц
 				PhysicalAccountInfo physicalAccountInfo = (PhysicalAccountInfo) accountInfo;
 				PhysicalStopListRequest request = new PhysicalStopListRequest();
 				request.setDocumentSeries(physicalAccountInfo.getDocumentSeries());
