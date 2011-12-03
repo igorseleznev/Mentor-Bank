@@ -1,6 +1,10 @@
 package ru.mentorbank.backoffice.services.moneytransfer;
 
+import java.util.Set;
+
 import ru.mentorbank.backoffice.dao.OperationDao;
+import ru.mentorbank.backoffice.dao.exception.OperationDaoException;
+import ru.mentorbank.backoffice.model.Operation;
 import ru.mentorbank.backoffice.model.stoplist.JuridicalStopListRequest;
 import ru.mentorbank.backoffice.model.stoplist.StopListInfo;
 import ru.mentorbank.backoffice.model.stoplist.StopListStatus;
@@ -66,6 +70,13 @@ public class MoneyTransferServiceBean implements MoneyTransferService {
 		private void saveOperation() {
 			// TODO: Необходимо сделать вызов операции saveOperation и сделать
 			// соответствующий тест вызова операции operationDao.saveOperation()
+			try {
+				Set<Operation> setOperation = operationDao.getOperations();
+				for (Operation operation : setOperation)
+					operationDao.saveOperation(operation);
+			} catch(OperationDaoException e) {
+				System.out.println("Ошибка сохранения операции.");
+			}
 		}
 
 		private void transferDo() throws TransferException {
