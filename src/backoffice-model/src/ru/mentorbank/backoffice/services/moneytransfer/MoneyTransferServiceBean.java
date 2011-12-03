@@ -82,7 +82,7 @@ public class MoneyTransferServiceBean implements MoneyTransferService {
 			
 			operation.setSrcStoplistInfo(srcStopListInfo);
 			operation.setDstStoplistInfo(dstStopListInfo);
-			//где взять дату непонятно
+			//не понял, где взять данные для полей createDate и sentDate
 			
 			try {
 				operationDao.saveOperation(operation);
