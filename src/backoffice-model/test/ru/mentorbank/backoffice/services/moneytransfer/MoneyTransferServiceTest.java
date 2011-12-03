@@ -23,7 +23,7 @@ public class MoneyTransferServiceTest extends AbstractSpringTest {
 		fail("not implemented yet");
 		// TODO: Необходимо протестировать, что для хорошего перевода всё
 		// работает и вызываются все необходимые методы сервисов
-		// Далее следует закоментированная закотовка
+		// Далее следует закоментированная заготовка
 		// StopListService mockedStopListService =
 		// mock(StopListServiceStub.class);
 		// AccountService mockedAccountService = mock(AccountServiceBean.class);
